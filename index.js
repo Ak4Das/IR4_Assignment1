@@ -146,24 +146,24 @@ app.get("/books", async (req, res) => {
   }
 })
 
-// async function addNewBook(newBook) {
-//   try {
-//     const book = new Book(newBook)
-//     const saveBook = await book.save()
-//     return saveBook
-//   } catch (error) {
-//     throw error
-//   }
-// }
+async function addNewBook(newBook) {
+  try {
+    const book = new Book(newBook)
+    const saveBook = await book.save()
+    return saveBook
+  } catch (error) {
+    throw error
+  }
+}
 
-// app.use(express.json())
-// app.post("/books", async (req, res) => {
-//   try {
-//     const savedBook = await addNewBook(req.body)
-//     res
-//       .status(201)
-//       .json({ message: "Book added successfully", newBook: savedBook })
-//   } catch (error) {
-//     res.status(500).json({ error: "Failed to add Book" })
-//   }
-// })
+app.use(express.json())
+app.post("/addBook", async (req, res) => {
+  try {
+    const savedBook = await addNewBook(req.body)
+    res
+      .status(201)
+      .json({ message: "Book added successfully", newBook: savedBook })
+  } catch (error) {
+    res.status(500).json({ error: "Failed to add Book" })
+  }
+})
