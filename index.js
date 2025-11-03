@@ -12,6 +12,16 @@ app.listen(PORT, () => {
   console.log("Server is running on ", PORT)
 })
 
+// For CORS Error
+const cors = require("cors");
+const corsOptions = {
+  origin: "*",
+  credentials: true,
+  optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+
 async function deleteBook(bookId) {
   try {
     const deleteBook = await Book.findByIdAndDelete(bookId)
@@ -34,16 +44,6 @@ app.delete("/books/:bookId", async (req, res) => {
     res.status(500).json({ error: "Book not found." })
   }
 })
-
-// For CORS Error
-const cors = require("cors");
-const corsOptions = {
-  origin: "*",
-  credentials: true,
-  optionSuccessStatus: 200,
-};
-
-app.use(cors(corsOptions));
 
 // async function updateBook(title, dataToUpdate) {
 //   try {
